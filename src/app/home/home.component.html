@@ -1,0 +1,40 @@
+<div class="title">
+    Quiz
+</div>
+<div class="quiz-topics" >
+    <div class="topic" (click)="onClickTopic(i)" *ngFor="let topic of topics; let i = index"> {{topic}}</div>
+</div>
+<hr>
+<div class="quiz-selector">
+    <div class="selector" >
+        <img src="" alt="finger">
+        <p>Choose a topic to start</p>
+    </div>
+</div>
+<div class="homeContainer">
+    <div class="card" *ngIf="isTopicSelected">
+        <div class="cardTitle">
+            {{cardTitle}}
+        </div>
+        <div class="cardContent">
+            {{cardContent}}
+            <p>Choose your level</p>
+            <div class="option" id="hard" (click)="chooseLevel('hard')">Hard</div>
+                <div class="option" id="easy" (click)="chooseLevel('easy')">Easy</div>
+            <div>
+                <input type="checkbox" id="check" name="check" (change)="toggleLaunch()">
+                Yes, I understand the instructions
+            </div>
+            <button [disabled]="launch" routerLink="quiz">Launch</button>
+        </div>
+    </div>
+    <div class="card" *ngIf="!isTopicSelected">
+        <div class="cardTitle">Gnenral Instruction</div>
+        <div>
+        <!-- <div class="cardContent"> -->
+            <p class="instruction">1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p class="instruction">2. Dictumst quisque sagittis purus sit amet volutpat consequat.</p>
+            <p class="instruction">3. Eget aliquet nibh praesent tristique magna sit amet purus.</p>
+        </div>
+    </div>
+</div>

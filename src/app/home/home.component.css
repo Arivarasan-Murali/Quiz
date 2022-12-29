@@ -1,0 +1,91 @@
+.title {
+    text-align: center;
+    padding: 1rem;
+    font-size: 2rem;
+    background-color: purple;
+    color: yellow;
+}
+
+.quiz-topics {
+    display: flex;
+    justify-content: center;
+}
+
+.topic {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+}
+
+.topic:hover {
+    background-color: purple;
+    box-shadow: 2px 2px 2px 2px grey;
+    border-radius: 0 0 2rem 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.topic:active {
+    background-color: purple;
+    box-shadow: none;
+}
+
+.quiz-selector {
+    display: flex;
+    justify-content:space-around;
+    display: none;
+}
+
+.homeContainer {
+    background-color: green;
+    height: 100vh;
+}
+
+.cardContent {
+    padding: 0 2rem;
+} 
+
+.option {
+    display: inline-block;
+    padding: .5rem;
+    margin: .25rem .5rem;
+    box-shadow: 2px 2px 2px 2px grey;
+    align-items: center;
+}
+
+.option:hover {
+    cursor: pointer;
+}
+
+#easy {
+    background-color: yellowgreen;
+}
+
+#hard {
+    background-color: rgb(214, 53, 53);
+}
+
+.active {
+    box-shadow: none;
+}
+
+.card {
+    background-color: yellow;
+    max-width: 40rem;
+    min-height: 20rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cardTitle {
+    padding: 1rem;
+    text-align: center;
+    background-color:black;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.instruction {
+    padding: 0 2rem;
+}
