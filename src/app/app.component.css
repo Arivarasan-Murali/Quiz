@@ -1,0 +1,16 @@
+.titleBar {
+    text-align: center;
+    padding: 1rem;
+    font-size: 2rem;
+    background-color: purple;
+    color: yellow;
+}
+
+.home {
+    position: absolute;
+    top: 1.5rem;
+    left: 1rem;
+    font-size: medium;
+    vertical-align: middle;
+    cursor: pointer;
+}

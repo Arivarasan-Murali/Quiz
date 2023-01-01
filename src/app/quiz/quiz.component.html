@@ -1,1 +1,36 @@
-<p>quiz works!</p>
+<div class="quizContainer">
+    <div class="qawrapper">
+      <div class="question">
+        {{ questionNo + 1 }}) {{ questions[questionNo].question }}
+      </div>
+      <div>
+        <ul class="options">
+          <li class="option">
+            <input type="radio" name="Options" /><label for="A"
+              >&nbsp;&nbsp; {{ questions[questionNo].optionA }}</label
+            >
+          </li>
+          <li class="option">
+            <input type="radio" name="Options" /><label for="B"
+              >&nbsp;&nbsp; {{ questions[questionNo].optionB }}</label
+            >
+          </li>
+          <li class="option">
+            <input type="radio" name="Options" /><label for="C"
+              >&nbsp;&nbsp; {{ questions[questionNo].optionC }}</label
+            >
+          </li>
+          <li class="option">
+            <input type="radio" name="Options" /><label for="D"
+              >&nbsp;&nbsp; {{ questions[questionNo].optionC }}</label
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="navigation">
+        <button class="navBtn" (click)="onPrevious()">Previous</button>
+        <button class="navBtn" (click)="onNext()">Next</button>
+      </div>
+    </div>
+  </div>
+  

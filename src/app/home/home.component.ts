@@ -10,14 +10,9 @@ export class HomeComponent implements OnInit {
   topics = ['Maths', 'General Knowledge', 'Aptitude'];
   cardTitle: string = 'title';
   cardContent: string = 'Content for the corresponding topic';
-  // check = document.getElementById('check');
   isTopicSelected: boolean = false;
-  launch: boolean = true;
-
-  levelText = {
-    easy: 'Easy as 1 2 3',
-    hard: 'I know 98th digit of PI'
-  }
+  level: string = '';
+  launch: boolean = false;
   
   constructor() { }
 
@@ -25,20 +20,30 @@ export class HomeComponent implements OnInit {
   }
 
   toggleLaunch() {
-    this.launch = !this.launch;
+    if(this.level != '') {
+      this.launch = !this.launch;
+      this.launch ? document.getElementById('launch')?.classList.remove('active') : document.getElementById('launch')?.classList.add('active');
+    }
   }
   
   onClickTopic(i: number) {
     this.cardTitle = this.topics[i];
-    this.isTopicSelected = true
+    this.isTopicSelected = true;
+    this.launch = false;
+    this.chooseLevel('');
   }
-
+  
   chooseLevel(level: string) {
-    if(level == 'easy') {
+    this.level = level;
+    (<HTMLInputElement>document.getElementById('check')).checked = false;
+    if(this.level == 'easy') {
       document.getElementById('easy')?.classList.add('active');
       document.getElementById('hard')?.classList.remove('active');
-    } else if (level == 'hard') {
+    } else if (this.level == 'hard') {
       document.getElementById('hard')?.classList.add('active');
+      document.getElementById('easy')?.classList.remove('active');
+    } else {
+      document.getElementById('hard')?.classList.remove('active');
       document.getElementById('easy')?.classList.remove('active');
     }
   }

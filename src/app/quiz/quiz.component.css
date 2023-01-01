@@ -1,0 +1,47 @@
+.quizContainer {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: aquamarine;
+}
+
+.qawrapper {
+    position: relative;
+    top: 25%;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.question {
+    padding: 0 0 1rem .5rem;
+    font-size: 1.5rem;
+    background-color: white;
+}
+
+li {
+    list-style: none;
+    padding: .75rem;
+    background-color: white;
+}
+
+.option {
+    vertical-align: middle;
+}
+
+.navigation {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navBtn {
+    padding: .5rem 2rem;
+    background-color: rgb(40, 241, 158);
+    border: 1px solid green;
+    box-shadow: 1px 1px 3px green;
+    cursor: pointer;
+}
+
+.navBtn:active {
+    box-shadow: none;
+}
