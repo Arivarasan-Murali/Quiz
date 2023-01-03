@@ -1,35 +1,35 @@
-<div class="quizContainer">
+<div class="quizContainer" *ngIf="!!result">
     <div class="qawrapper">
       <div class="question">
-        {{ questionNo + 1 }}) {{ questions[questionNo].question }}
+        {{ questionNo + 1 }}) {{ result[questionNo].question }}
       </div>
       <div>
         <ul class="options">
           <li class="option">
             <input type="radio" name="Options" /><label for="A"
-              >&nbsp;&nbsp; {{ questions[questionNo].optionA }}</label
+              >&nbsp;&nbsp; {{ result[questionNo].correct_answer }}</label
             >
           </li>
           <li class="option">
             <input type="radio" name="Options" /><label for="B"
-              >&nbsp;&nbsp; {{ questions[questionNo].optionB }}</label
+              >&nbsp;&nbsp; {{ result[questionNo].incorrect_answers[0] }}</label
             >
           </li>
-          <li class="option">
+          <li class="option" *ngIf="!!result[questionNo].incorrect_answers[1]">
             <input type="radio" name="Options" /><label for="C"
-              >&nbsp;&nbsp; {{ questions[questionNo].optionC }}</label
+              >&nbsp;&nbsp; {{ result[questionNo].incorrect_answers[1] }}</label
             >
           </li>
-          <li class="option">
+          <li class="option" *ngIf="!!result[questionNo].incorrect_answers[2]">
             <input type="radio" name="Options" /><label for="D"
-              >&nbsp;&nbsp; {{ questions[questionNo].optionC }}</label
+              >&nbsp;&nbsp; {{ result[questionNo].incorrect_answers[2] }}</label
             >
           </li>
         </ul>
       </div>
       <div class="navigation">
-        <button class="navBtn" (click)="onPrevious()">Previous</button>
-        <button class="navBtn" (click)="onNext()">Next</button>
+        <button class="navBtn previous" [hidden]='questionNo == 0' (click)="onPrevious()">Previous</button>
+        <button class="navBtn next" (click)="onNext((questionNo < numOfQuestions - 1) ? 'Next' : 'Submit')">{{ (questionNo < numOfQuestions - 1) ? 'Next' : 'Submit' }}</button>
       </div>
     </div>
   </div>

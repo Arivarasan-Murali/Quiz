@@ -34,12 +34,19 @@ li {
     justify-content: space-between;
 }
 
+
+
 .navBtn {
     padding: .5rem 2rem;
     background-color: rgb(40, 241, 158);
     border: 1px solid green;
     box-shadow: 1px 1px 3px green;
     cursor: pointer;
+}
+
+.next {
+    position: absolute;
+    right: 1rem;
 }
 
 .navBtn:active {

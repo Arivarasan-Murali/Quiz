@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../storage.service';
+
+import {catogories} from './catogory.model'
 
 @Component({
   selector: 'app-home',
@@ -7,17 +11,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  topics = ['Maths', 'General Knowledge', 'Aptitude'];
+  topics = [
+    {
+      id: 0, 
+      name: 'GK'
+    }, 
+    {
+      id: 14, 
+      name: 'TV'
+    }, 
+    {
+      id: 15,
+      name: 'Games'
+    },
+  {
+    id: 18,
+    name: 'Computers'
+  }];
   cardTitle: string = 'title';
   cardContent: string = 'Content for the corresponding topic';
   isTopicSelected: boolean = false;
   level: string = '';
   launch: boolean = false;
   
-  constructor() { }
+  catagory: catogories[];
 
-  ngOnInit(): void {
-  }
+  constructor(private http: HttpClient, private storageService: StorageService) { }
+
+  ngOnInit(): void {}
 
   toggleLaunch() {
     if(this.level != '') {
@@ -27,25 +48,29 @@ export class HomeComponent implements OnInit {
   }
   
   onClickTopic(i: number) {
-    this.cardTitle = this.topics[i];
+    this.cardTitle = this.topics[i].name;
     this.isTopicSelected = true;
     this.launch = false;
     this.chooseLevel('');
+    this.storageService.topic = this.topics[i].id
   }
   
   chooseLevel(level: string) {
     this.level = level;
-    (<HTMLInputElement>document.getElementById('check')).checked = false;
-    if(this.level == 'easy') {
-      document.getElementById('easy')?.classList.add('active');
-      document.getElementById('hard')?.classList.remove('active');
-    } else if (this.level == 'hard') {
-      document.getElementById('hard')?.classList.add('active');
-      document.getElementById('easy')?.classList.remove('active');
-    } else {
-      document.getElementById('hard')?.classList.remove('active');
-      document.getElementById('easy')?.classList.remove('active');
+    // (<HTMLInputElement>document.getElementById('check')).checked = false;
+    document.getElementById('easy')?.classList.remove('active');
+    document.getElementById('medium')?.classList.remove('active');
+    document.getElementById('hard')?.classList.remove('active');
+    switch(level) {
+      case 'easy' : {
+        document.getElementById('easy')?.classList.add('active');
+      } break;
+      case 'medium' : {
+        document.getElementById('medium')?.classList.add('active');
+      }break;
+      case 'hard' : {
+        document.getElementById('hard')?.classList.add('active');
+      }break;
     }
   }
-
 }
