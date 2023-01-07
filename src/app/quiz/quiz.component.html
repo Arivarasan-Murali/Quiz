@@ -1,36 +1,20 @@
-<div class="quizContainer" *ngIf="!!result">
+<div class="quizContainer" *ngIf="!!setOfQA">
     <div class="qawrapper">
       <div class="question">
-        {{ questionNo + 1 }}) {{ result[questionNo].question }}
+        {{questionNo + 1 + ') ' + setOfQA[questionNo+1].question}}
+      </div >
+      <div class="option" *ngFor="let A of setOfQA[questionNo+1].options;let i = index" (click)="optionChoosed(i)" [ngClass]="{'selected': choosedId == i}">
+        {{A}} 
       </div>
-      <div>
-        <ul class="options">
-          <li class="option">
-            <input type="radio" name="Options" /><label for="A"
-              >&nbsp;&nbsp; {{ result[questionNo].correct_answer }}</label
-            >
-          </li>
-          <li class="option">
-            <input type="radio" name="Options" /><label for="B"
-              >&nbsp;&nbsp; {{ result[questionNo].incorrect_answers[0] }}</label
-            >
-          </li>
-          <li class="option" *ngIf="!!result[questionNo].incorrect_answers[1]">
-            <input type="radio" name="Options" /><label for="C"
-              >&nbsp;&nbsp; {{ result[questionNo].incorrect_answers[1] }}</label
-            >
-          </li>
-          <li class="option" *ngIf="!!result[questionNo].incorrect_answers[2]">
-            <input type="radio" name="Options" /><label for="D"
-              >&nbsp;&nbsp; {{ result[questionNo].incorrect_answers[2] }}</label
-            >
-          </li>
-        </ul>
-      </div>
+      <br>
       <div class="navigation">
         <button class="navBtn previous" [hidden]='questionNo == 0' (click)="onPrevious()">Previous</button>
+        <div class="pageNumContainer">
+          <div class="pageNumber" *ngFor="let question of result;let i = index;" (click)='goToQuestion(i);'>
+              {{i + 1}}
+          </div>
+        </div>
         <button class="navBtn next" (click)="onNext((questionNo < numOfQuestions - 1) ? 'Next' : 'Submit')">{{ (questionNo < numOfQuestions - 1) ? 'Next' : 'Submit' }}</button>
       </div>
     </div>
   </div>
-  

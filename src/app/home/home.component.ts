@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../storage.service';
 
@@ -36,7 +35,7 @@ export class HomeComponent implements OnInit {
   
   catagory: catogories[];
 
-  constructor(private http: HttpClient, private storageService: StorageService) { }
+  constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {}
 
@@ -57,6 +56,7 @@ export class HomeComponent implements OnInit {
   
   chooseLevel(level: string) {
     this.level = level;
+    this.storageService.dificulty = level;
     // (<HTMLInputElement>document.getElementById('check')).checked = false;
     document.getElementById('easy')?.classList.remove('active');
     document.getElementById('medium')?.classList.remove('active');
