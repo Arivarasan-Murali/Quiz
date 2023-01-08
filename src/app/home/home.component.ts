@@ -43,11 +43,14 @@ export class HomeComponent implements OnInit {
   onClickTopic(i: number) {
     this.cardTitle = this.topics[i].name;
     this.isTopicSelected = true;
-    (<HTMLInputElement>document.getElementById('check')).checked = false;
     this.launch = false;
     this.chooseLevel('');
     this.storageService.topic = this.topics[i].id.toString()
-    localStorage.setItem('catagory', this.topics[i].id.toString())
+    localStorage.setItem('catagory', this.topics[i].id.toString());
+    // console.log('this.topics[i].id ' + this.topics[i].id)
+    // console.log('this.topics[i].id.toString() ' + this.topics[i].id.toString());
+    // console.log('this.storageService.topic ' + this.storageService.topic);
+    (<HTMLInputElement>document.getElementById('check')).checked = false;
     this.enableLaunch();
   }
   
@@ -84,6 +87,9 @@ export class HomeComponent implements OnInit {
   }
 
   launchQuiz() {
+    // console.log('this.storageService.topic ' + this.storageService.topic)
+    // console.log('catagory ' + localStorage.getItem('catagory'))
+    // console.log('level ' + localStorage.getItem('level'))
     this.router.navigate(['/quiz']);
   }
 }

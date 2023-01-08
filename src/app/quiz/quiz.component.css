@@ -1,4 +1,19 @@
-.quizContainer {
+.noQuizContainer {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(243, 151, 231);
+}
+
+.noQuizContainer p,.loading p {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.quizContainer,.loading {
     position: absolute;
     height: 100%;
     width: 100%;

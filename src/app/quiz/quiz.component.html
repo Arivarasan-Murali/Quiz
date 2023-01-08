@@ -1,4 +1,4 @@
-<div class="quizContainer" *ngIf="!!setOfQA">
+<div class="quizContainer" *ngIf="setOfQA.length > 1">
     <div class="qawrapper">
       <div class="question">
         {{questionNo + 1 + ') ' + setOfQA[questionNo+1].question}}
@@ -18,3 +18,9 @@
       </div>
     </div>
   </div>
+<div class="noQuizContainer" *ngIf="(setOfQA.length < 2) && loading == false">
+  <p>Seems the page got refreshed. Please navigate back to home.</p>
+</div>
+<div class="loading" *ngIf="loading">
+  <p>Loading . . .</p>
+</div>

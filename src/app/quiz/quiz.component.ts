@@ -17,6 +17,8 @@ export class QuizComponent implements OnInit {
   numOfQuestions: number = 5;
   questionNo: number = 0;
   choosedId: number = 5;
+  loading: boolean = false;
+
   result: [{
     catogory: string,
     correct_answer: string,
@@ -51,7 +53,9 @@ export class QuizComponent implements OnInit {
       this.storageService.topic = localStorage.getItem('catagory')
       this.storageService.dificulty = localStorage.getItem('level')
     }
-    this.onLoad();
+    if(this.storageService.topic && this.storageService.dificulty) {
+      this.onLoad();
+    }
   }
 
  decodeHtml(html: string) {
@@ -61,7 +65,7 @@ export class QuizComponent implements OnInit {
 }
   
   onLoad() {
-    console.log('topic: ' + this.storageService.topic + ' | dificulty: ' + this.storageService.dificulty)
+    this.loading = true;
     this.http.get<Questions>('https://opentdb.com/api.php?amount=' + this.numOfQuestions + '&type=multiple&difficulty=' + this.storageService.dificulty + '&category=' + this.storageService.topic)
     .pipe(map(
       responseData => {
@@ -82,12 +86,13 @@ export class QuizComponent implements OnInit {
       }
     ))
     .subscribe(
-      (responseData) => {
-        console.log(this.result.length + " questions of difficulty level '" + this.result[0].difficulty + "' is generated."  )
+      () => {
+        console.log(this.result.length + " questions of difficulty level '" + this.result[0].difficulty + "' is generated." )
+        this.loading = false;
         }
       )
     }
-    
+
   onNext(text: string) {
     if(text == 'Next') {
       if (this.questionNo < this.result.length - 1) {
@@ -97,7 +102,7 @@ export class QuizComponent implements OnInit {
     } else {
       this.onSubmit()
     }
-    this.logMessage('onNext')
+    // this.logMessage('onNext')
   }
 
   onPrevious() {
@@ -105,7 +110,7 @@ export class QuizComponent implements OnInit {
       this.questionNo -= 1;
       this.choosedId = this.setOfQA[this.questionNo].choosed;
     }
-    this.logMessage('onPrevious')
+    // this.logMessage('onPrevious')
   }
   
   goToQuestion(n: number) {
@@ -116,38 +121,34 @@ export class QuizComponent implements OnInit {
   optionChoosed(i: number) {
     this.choosedId = i;
     this.setOfQA[this.questionNo].choosed = i;
-    this.logMessage('optionChoosed')
+    // this.logMessage('optionChoosed')
   }
 
   onSubmit() {
     let unanswered: boolean = false;
-    this.logMessage('onSubmit')
+    // this.logMessage('onSubmit')
     for (let i = 0; i < this.setOfQA.length - 1; i++) {
-      console.log('checking quesiton ' + i + 'choosen answer : ' + this.setOfQA[i].choosed)
       if(this.setOfQA[i].choosed == 5) {
-        console.log('choosed - ' + this.setOfQA[i].choosed + ' for ' + i)
         unanswered = true;
       }
     }
     if(unanswered) {
-      alert('Not All questions are answered')
+      alert('Not All questions are answered.')
     } else {
-      console.log('submitting')
+      // console.log('submitting')
       this.validation()
     }
   }
 
-  logMessage(msg: string) {
-    console.log(msg + ':- Q.no.: ' + (this.questionNo + 1) + ' | Currently choosed: ' + (this.setOfQA[this.questionNo].choosed) + ' | choosedId: ' + this.choosedId)
-  }
+  // logMessage(msg: string) {
+  //   console.log(msg + ':- Q.no.: ' + (this.questionNo + 1) + ' | Currently choosed: ' + (this.setOfQA[this.questionNo].choosed) + ' | choosedId: ' + this.choosedId)
+  // }
 
   validation() {
     let correctAnswer: number = 0;
     for(let i = 0;i < this.setOfQA.length - 1; i++) {
-      console.log('choosen:' + this.setOfQA[i+1].options[this.setOfQA[i].choosed] + 'correct answer: ' + this.result[i].correct_answer)
       if(this.setOfQA[i+1].options[this.setOfQA[i].choosed] == this.result[i].correct_answer) {
         correctAnswer++;
-        console.log(correctAnswer + ' correct answers')
       }
     }
     this.storageService.result = (correctAnswer > this.setOfQA.length * .5 ? 'Pass' : 'Fail')
