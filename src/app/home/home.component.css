@@ -1,4 +1,5 @@
 .quiz-topics {
+    background-color: rgba(255, 165, 0, .5);
     display: flex;
     justify-content: center;
 }
@@ -31,8 +32,9 @@
 }
 
 .homeContainer {
-    background-color: green;
+    background-color:rgba(129, 245, 220, 0.5);
     height: 100vh;
+    width: 100vw;
 }
 
 .cardContent {
@@ -83,7 +85,7 @@ button {
 }
 
 .instruction {
-    padding: 0 2rem;
+    padding: 1rem 2rem 0 2rem;
 }
 
 .link {
@@ -106,4 +108,17 @@ button {
     left: 50%;
     transform: translate(-50%);
     bottom: 10%;
+}
+
+
+@media(max-width: 500px) {
+    .card {
+        max-height: 60%;
+        overflow: auto;
+    }
+
+    .homeContainer {
+        height: 100%;
+        width: 100%;
+    }
 }

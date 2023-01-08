@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StorageService } from '../storage.service';
 
 import {catogories} from './catogory.model'
@@ -35,29 +36,26 @@ export class HomeComponent implements OnInit {
   
   catagory: catogories[];
 
-  constructor(private storageService: StorageService) { }
+  constructor(private storageService: StorageService, private router: Router) { }
 
   ngOnInit(): void {}
-
-  toggleLaunch() {
-    if(this.level != '') {
-      this.launch = !this.launch;
-      this.launch ? document.getElementById('launch')?.classList.remove('active') : document.getElementById('launch')?.classList.add('active');
-    }
-  }
   
   onClickTopic(i: number) {
     this.cardTitle = this.topics[i].name;
     this.isTopicSelected = true;
+    (<HTMLInputElement>document.getElementById('check')).checked = false;
     this.launch = false;
     this.chooseLevel('');
-    this.storageService.topic = this.topics[i].id
+    this.storageService.topic = this.topics[i].id.toString()
+    localStorage.setItem('catagory', this.topics[i].id.toString())
+    this.enableLaunch();
   }
   
   chooseLevel(level: string) {
     this.level = level;
     this.storageService.dificulty = level;
-    // (<HTMLInputElement>document.getElementById('check')).checked = false;
+    localStorage.setItem('level', level)
+
     document.getElementById('easy')?.classList.remove('active');
     document.getElementById('medium')?.classList.remove('active');
     document.getElementById('hard')?.classList.remove('active');
@@ -72,5 +70,20 @@ export class HomeComponent implements OnInit {
         document.getElementById('hard')?.classList.add('active');
       }break;
     }
+    this.enableLaunch();
+  }
+
+  enableLaunch() {
+    if(this.level && (<HTMLInputElement>document.getElementById('check')).checked) {
+      this.launch = true;
+      document.getElementById('launch')?.classList.remove('active')
+    } else {
+      this.launch = false;
+      document.getElementById('launch')?.classList.add('active')
+    }
+  }
+
+  launchQuiz() {
+    this.router.navigate(['/quiz']);
   }
 }

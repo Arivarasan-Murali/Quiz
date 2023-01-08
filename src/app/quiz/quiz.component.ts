@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { map } from "rxjs";
 import { StorageService } from "../storage.service";
 
@@ -43,12 +44,15 @@ export class QuizComponent implements OnInit {
     choosed: 5
   }];
   
-  constructor(private http: HttpClient, private storageService: StorageService) {}
+  constructor(private http: HttpClient, private storageService: StorageService, private router: Router) {}
   
   ngOnInit(): void {
+    if(localStorage.getItem('catagory') != null) {
+      this.storageService.topic = localStorage.getItem('catagory')
+      this.storageService.dificulty = localStorage.getItem('level')
+    }
     this.onLoad();
   }
-
 
  decodeHtml(html: string) {
     let parser = new DOMParser().parseFromString(html, "text/html")
@@ -146,6 +150,7 @@ export class QuizComponent implements OnInit {
         console.log(correctAnswer + ' correct answers')
       }
     }
-    alert(correctAnswer + ' of ' + (this.setOfQA.length - 1) + ' are correct. ' + (correctAnswer > this.setOfQA.length * .5 ? ' Wow!! You passed the quiz' : 'Failed! Try again'))
+    this.storageService.result = (correctAnswer > this.setOfQA.length * .5 ? 'Pass' : 'Fail')
+    this.router.navigate(['/result'])
   }
 }

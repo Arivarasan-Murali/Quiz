@@ -5,53 +5,60 @@
         *ngFor="let topic of topics; let i = index"
       >
         {{ topic.name }}
-      </div>
     </div>
-  <hr />
-  <div class="quiz-selector">
-    <div class="selector">
-      <img src="" alt="finger" />
-      <p>Choose a topic to start</p>
+</div>
+<hr />
+<div class="quiz-selector">
+  <div class="selector">
+    <img src="" alt="finger" />
+    <p>Choose a topic to start</p>
+  </div>
+</div>
+<div class="homeContainer">
+  <div class="card" *ngIf="isTopicSelected">
+    <div class="cardTitle">
+      {{ cardTitle }}
+    </div>
+    <div class="cardContent">
+      {{ cardContent }}
+      <p>Choose your level</p>
+      <div class="option" id="easy" (click)="chooseLevel('easy')">Easy</div>
+      <div class="option" id="medium" (click)="chooseLevel('medium')">Medium</div>
+      <div class="option" id="hard" (click)="chooseLevel('hard')">Hard</div>
+      <div class="aggrement">
+        <input
+          type="checkbox"
+          id="check"
+          name="check"
+          (change)="enableLaunch()"
+        />
+        Yes, I understand the
+        <span class="link" (click)="isTopicSelected = false">instructions</span>
+      </div>
+      <button id="launch" class="active" [disabled]="!launch" (click)="launchQuiz()">Launch</button>
     </div>
   </div>
-  <div class="homeContainer">
-    <div class="card" *ngIf="isTopicSelected">
-      <div class="cardTitle">
-        {{ cardTitle }}
-      </div>
-      <div class="cardContent">
-        {{ cardContent }}
-        <p>Choose your level</p>
-        <div class="option" id="easy" (click)="chooseLevel('easy')">Easy</div>
-        <div class="option" id="medium" (click)="chooseLevel('medium')">Medium</div>
-        <div class="option" id="hard" (click)="chooseLevel('hard')">Hard</div>
-        <div class="aggrement">
-          <input
-            type="checkbox"
-            id="check"
-            name="check"
-            (change)="toggleLaunch()"
-          />
-          Yes, I understand the
-          <span class="link" (click)="isTopicSelected = false">instructions</span>
-        </div>
-        <button id="launch" class="active" [disabled]="!launch" routerLink="quiz">Launch</button>
-      </div>
-    </div>
-    <div class="card" *ngIf="!isTopicSelected">
-      <div class="cardTitle">Gnenral Instruction</div>
-      <div>
-        <!-- <div class="cardContent"> -->
-        <p class="instruction">
-          1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <p class="instruction">
-          2. Dictumst quisque sagittis purus sit amet volutpat consequat.
-        </p>
-        <p class="instruction">
-          3. Eget aliquet nibh praesent tristique magna sit amet purus.
-        </p>
-      </div>
+  <div class="card" *ngIf="!isTopicSelected">
+    <div class="cardTitle">Gnenral Instruction</div>
+    <div>
+      <p class="instruction">
+        1. Choose the topic and dificulty to get started
+      </p>
+      <p class="instruction">
+        2. Each topic will have 10 multiple choise questions
+      </p>
+      <p class="instruction">
+        3. Once all the 10 questions are answered, press on Submit button to view the results
+      </p>
+      <p class="instruction">
+        4. In order to pass, answer 50% of questions with correct answer
+      </p>
+      <p class="instruction">
+        5. Do not refresh the page during quiz, in the event of refresh, a new set of 10 questions will be generated and you have to start the quiz from the start
+      </p>
     </div>
   </div>
+  <p>
+    Fix CSS with media queries.
+  </p>
+</div>

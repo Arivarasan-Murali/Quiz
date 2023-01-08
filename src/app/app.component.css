@@ -1,7 +1,12 @@
+.page {
+    height: 100vh;
+}
+
 .titleBar {
     text-align: center;
     padding: 1rem;
     font-size: 2rem;
+    height: 5rem;
     background-color: purple;
     color: yellow;
 }
