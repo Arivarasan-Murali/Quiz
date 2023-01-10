@@ -2,10 +2,29 @@
     height: 100%;
 }
 
+.result {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
 .resultText {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     font-size: 2rem;
+}
+
+.review {
+    margin-top: 2erm;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 2px 2px 2px grey;
+    cursor: pointer;
+}
+
+.review:active {
+    box-shadow: none;
 }

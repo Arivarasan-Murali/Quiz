@@ -1,25 +1,50 @@
 <div class="quizContainer" *ngIf="setOfQA.length > 1">
     <div class="qawrapper">
       <div class="question">
-        {{questionNo + 1 + ') ' + setOfQA[questionNo+1].question}}
+        {{questionNo + 1 + ') ' + setOfQA[questionNo].question}}
       </div >
-      <div class="option" *ngFor="let A of setOfQA[questionNo+1].options;let i = index" (click)="optionChoosed(i)" [ngClass]="{'selected': choosedId == i}">
-        {{A}} 
+      <div class="option" 
+        *ngFor="let A of setOfQA[questionNo].options;let i = index" 
+        (click)="optionChoosed(i)" 
+        [ngClass]="{
+          'selected': choosedId == i && !noMoreEdit,
+          'wrongAnswer': choosedId == i && noMoreEdit,
+          'correctAnswer': A === setOfQA[questionNo].correctAnswer && noMoreEdit
+        }"
+        >
+        {{A}}
       </div>
       <br>
       <div class="navigation">
-        <button class="navBtn previous" [hidden]='questionNo == 0' (click)="onPrevious()">Previous</button>
+        <button 
+          class="navBtn previous" 
+          [hidden]='questionNo == 0' 
+          (click)="onPrevious()"
+          >
+          Previous
+        </button>
         <div class="pageNumContainer">
-          <div class="pageNumber" *ngFor="let question of result;let i = index;" (click)='goToQuestion(i);'>
+          <div class="pageNumber" 
+            *ngFor="let question of setOfQA;let i = index;" 
+            (click)='goToQuestion(i);' 
+            [ngClass]="{'current': questionNo == i}"
+            >
               {{i + 1}}
           </div>
         </div>
-        <button class="navBtn next" (click)="onNext((questionNo < numOfQuestions - 1) ? 'Next' : 'Submit')">{{ (questionNo < numOfQuestions - 1) ? 'Next' : 'Submit' }}</button>
+        <button 
+          class="navBtn next" 
+          (click)="onNext(((questionNo == numOfQuestions-1) || enableSubmit) && !noMoreEdit? 'Submit' : 'Next' )"
+          [ngClass]="{'submit': (questionNo == numOfQuestions-1 || enableSubmit) && !noMoreEdit}"
+          *ngIf="!(noMoreEdit && questionNo == numOfQuestions-1)"
+          >
+          {{ ((questionNo == numOfQuestions-1) || enableSubmit) && !noMoreEdit ? 'Submit' : 'Next' }}
+        </button>
       </div>
     </div>
   </div>
 <div class="noQuizContainer" *ngIf="(setOfQA.length < 2) && loading == false">
-  <p>Seems the page got refreshed. Please navigate back to home.</p>
+  <p>Page got refreshed unfortunately. Please navigate back to home.</p>
 </div>
 <div class="loading" *ngIf="loading">
   <p>Loading . . .</p>

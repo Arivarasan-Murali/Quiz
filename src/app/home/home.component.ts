@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     name: 'Computers'
   }];
   cardTitle: string = 'title';
-  cardContent: string = 'Content for the corresponding topic';
+  cardContent: string = 'Good Luck on your quiz';
   isTopicSelected: boolean = false;
   level: string = '';
   launch: boolean = false;
@@ -38,7 +38,14 @@ export class HomeComponent implements OnInit {
 
   constructor(private storageService: StorageService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.storageService.quizData = [{
+      question: '',
+      options: ['', '', '', ''],
+      choosed: 5,
+      correctAnswer: ''
+    }]
+  }
   
   onClickTopic(i: number) {
     this.cardTitle = this.topics[i].name;
@@ -47,10 +54,12 @@ export class HomeComponent implements OnInit {
     this.chooseLevel('');
     this.storageService.topic = this.topics[i].id.toString()
     localStorage.setItem('catagory', this.topics[i].id.toString());
-    // console.log('this.topics[i].id ' + this.topics[i].id)
-    // console.log('this.topics[i].id.toString() ' + this.topics[i].id.toString());
-    // console.log('this.storageService.topic ' + this.storageService.topic);
-    (<HTMLInputElement>document.getElementById('check')).checked = false;
+    setTimeout(
+      () => {
+        //Dummy timer to check the input field after it has been loaded into DOM
+        (<HTMLInputElement>document.getElementById('check')).checked = false;
+      }, 1
+    )
     this.enableLaunch();
   }
   
@@ -87,9 +96,6 @@ export class HomeComponent implements OnInit {
   }
 
   launchQuiz() {
-    // console.log('this.storageService.topic ' + this.storageService.topic)
-    // console.log('catagory ' + localStorage.getItem('catagory'))
-    // console.log('level ' + localStorage.getItem('level'))
     this.router.navigate(['/quiz']);
   }
 }
