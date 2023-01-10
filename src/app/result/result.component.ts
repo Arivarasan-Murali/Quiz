@@ -19,10 +19,12 @@ export class ResultComponent implements OnInit {
     this.result = this.storageService.result;
     this.totalQuestions = this.storageService.quizData.length;
     this.correctAnswers = this.storageService.correctAnswers;
-
+    
+    // To prevent page load, If the webpage is refreshed in Result page or the route is manually entered in URL
     if(this.result == null) {
       this.router.navigate(['/'])
     }
+
     document.body.style.backgroundColor = (this.result === 'Pass' ? 'greenyellow' : 'rgb(253, 95, 83)');
   }
 

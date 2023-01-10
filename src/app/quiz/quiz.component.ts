@@ -67,6 +67,8 @@ export class QuizComponent implements OnInit {
   onLoad() {
     this.storageService.quizData.splice(0,1);
     this.loading = true;
+
+    // Trivia API :- https://opentdb.com/api_config.php
     this.http.get<Questions>('https://opentdb.com/api.php?amount=' + this.numOfQuestions + '&type=multiple&difficulty=' + this.storageService.dificulty + '&category=' + this.storageService.topic)
     .pipe(map(
       responseData => {
@@ -79,11 +81,14 @@ export class QuizComponent implements OnInit {
       (results) => {
         for(let i = 0; i < this.numOfQuestions; i++) {
           
+          // sort the results retrived from API into local Array in random order
           let retrivedAnswers = []
-          retrivedAnswers.push((<string>this.decodeHtml(results[i].correct_answer)), 
-          (<string>this.decodeHtml(results[i].incorrect_answers[0])), 
-          (<string>this.decodeHtml(results[i].incorrect_answers[1])), 
-          (<string>this.decodeHtml(results[i].incorrect_answers[2])));
+          retrivedAnswers.push(
+            (<string>this.decodeHtml(results[i].correct_answer)), 
+            (<string>this.decodeHtml(results[i].incorrect_answers[0])), 
+            (<string>this.decodeHtml(results[i].incorrect_answers[1])), 
+            (<string>this.decodeHtml(results[i].incorrect_answers[2]))
+            );
           let randomAnswer = retrivedAnswers.sort((a, b) => {  
             return 0.5 - Math.random();
           })
@@ -157,6 +162,7 @@ export class QuizComponent implements OnInit {
     }
   }
 
+  // Enable submit button to work only if all the questions are answered. Checked each time for all kind of events
   checkSubmitReady() {
     this.enableSubmit = true
         for(let i = 0;i< this.storageService.quizData.length;i++) {

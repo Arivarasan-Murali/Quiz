@@ -5,10 +5,10 @@ import { Injectable } from "@angular/core";
 export class StorageService {
     topic: string | null = null;
     dificulty: string | null = null;
-    result: string | null = null;
-    noMoreEdit: boolean = false;
-    correctAnswers: number = 0;
-    numberOfQuestions: number = 10;
+    result: string | null = null;           // Store PASS or FAIL
+    noMoreEdit: boolean = false;            // To prevent editing after the results are displayed
+    correctAnswers: number = 0;             // To display the number of questions answered correctly
+    numberOfQuestions: number = 10;         // To control how many number of questions to be fetched from API
 
     quizData: [{
         question: string;
