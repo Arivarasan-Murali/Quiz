@@ -21,6 +21,7 @@ export class QuizComponent implements OnInit {
   loading: boolean = false;
   noMoreEdit: boolean = false;
   enableSubmit: boolean = false;
+  unansweredQuestionNumbers: number[] = [15];
 
   setOfQA: [{
     question: string;
@@ -118,6 +119,7 @@ export class QuizComponent implements OnInit {
         this.questionNo += 1;
         this.choosedId = this.setOfQA[this.questionNo].choosed;
       }
+      this.updateAnswered();
     } else {
       this.onSubmit()
     }
@@ -129,7 +131,8 @@ export class QuizComponent implements OnInit {
       this.questionNo -= 1;
       this.choosedId = this.setOfQA[this.questionNo].choosed;
     }
-    this.checkSubmitReady()
+    this.updateAnswered();
+    this.checkSubmitReady();
   }
   
   goToQuestion(n: number) {
@@ -150,16 +153,38 @@ export class QuizComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.unansweredQuestionNumbers[0] === 15) {
+      this.unansweredQuestionNumbers.splice(0, 1);
+    }
     let unanswered: boolean = false;
     for (let i = 0; i < this.setOfQA.length; i++) {
       if(this.setOfQA[i].choosed == 5) {
         unanswered = true;
+        this.unansweredQuestionNumbers.push(i);
+      } else {
+        let filteredArray = this.unansweredQuestionNumbers.filter(
+          (value) => value !== i,
+        );
+        this.unansweredQuestionNumbers = filteredArray;
       }
     }
+    this.updateAnswered();
+    for (let i = 0; i < this.unansweredQuestionNumbers.length; i++) {}
     if(unanswered) {
       alert('Not All questions are answered.')
     } else {
       this.validation()
+    }
+  }
+
+  updateAnswered() {
+    console.log(this.unansweredQuestionNumbers);
+    let elements = document.getElementsByClassName('pageNumber');
+    for (let i = 0; i < this.setOfQA.length; i++) {
+      elements[i].classList.remove('unanswered');
+    }
+    for (let j = 0; j < this.unansweredQuestionNumbers.length; j++) {
+      elements[this.unansweredQuestionNumbers[j]].classList.add('unanswered');
     }
   }
 
