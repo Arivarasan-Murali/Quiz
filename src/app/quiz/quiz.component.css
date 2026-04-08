@@ -107,6 +107,11 @@
     cursor: pointer;
 }
 
+.unanswered {
+  background-color: rgb(255, 102, 0);
+  color: white;
+}
+
 .current {
     font-weight: 800;
     background-color: white;
