@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { StorageService } from '../storage.service';
 
 @Component({
-  selector: 'app-result',
-  templateUrl: './result.component.html',
-  styleUrls: ['./result.component.css']
+    selector: 'app-result',
+    templateUrl: './result.component.html',
+    styleUrls: ['./result.component.css'],
+    standalone: false
 })
 export class ResultComponent implements OnInit {
 
