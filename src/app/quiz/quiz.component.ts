@@ -1,20 +1,18 @@
-import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { map } from "rxjs";
-import { StorageService } from "../storage.service";
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { map } from 'rxjs';
+import { StorageService } from '../storage.service';
 
-import { Questions } from './question.model'
-
+import { Questions } from './question.model';
 
 @Component({
-    selector: "app-quiz",
-    templateUrl: "./quiz.component.html",
-    styleUrls: ["./quiz.component.css"],
-    standalone: false
+  selector: 'app-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.css'],
+  standalone: false,
 })
 export class QuizComponent implements OnInit {
-
   numOfQuestions: number = 0;
   questionNo: number = 0;
   choosedId: number = 5;
@@ -23,107 +21,126 @@ export class QuizComponent implements OnInit {
   enableSubmit: boolean = false;
   unansweredQuestionNumbers: number[] = [15];
 
-  setOfQA: [{
-    question: string;
-    options: [string, string, string, string];
-    choosed: number;
-    correctAnswer: string;
-  }]
+  setOfQA: [
+    {
+      question: string;
+      options: [string, string, string, string];
+      choosed: number;
+      correctAnswer: string;
+    },
+  ];
 
-  constructor(private http: HttpClient, private storageService: StorageService, private router: Router) {}
-  
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService,
+    private router: Router,
+  ) {}
+
   ngOnInit(): void {
     this.numOfQuestions = this.storageService.numberOfQuestions;
-    this.setOfQA = [{
-      question: '',
-      options: ['', '', '', ''],
-      choosed: 5,
-      correctAnswer: ''
-    }];
-    this.setOfQA.splice(0,1);
-    if(localStorage.getItem('catagory') != null) {
-      this.storageService.topic = localStorage.getItem('catagory')
-      this.storageService.dificulty = localStorage.getItem('level')
+    this.setOfQA = [
+      {
+        question: '',
+        options: ['', '', '', ''],
+        choosed: 5,
+        correctAnswer: '',
+      },
+    ];
+    this.setOfQA.splice(0, 1);
+    if (localStorage.getItem('catagory') != null) {
+      this.storageService.topic = localStorage.getItem('catagory');
+      this.storageService.dificulty = localStorage.getItem('level');
     }
-    if(this.storageService.topic && this.storageService.dificulty && !this.storageService.noMoreEdit) {
+    if (
+      this.storageService.topic &&
+      this.storageService.dificulty &&
+      !this.storageService.noMoreEdit
+    ) {
       this.onLoad();
     }
-    if(this.storageService.noMoreEdit) {
+    if (this.storageService.noMoreEdit) {
       this.setOfQA.push(...this.storageService.quizData);
       this.choosedId = this.setOfQA[this.questionNo].choosed;
       this.noMoreEdit = true;
-      for(let i = 0; i < this.setOfQA.length; i++) {
-          if(this.setOfQA[i].options[this.setOfQA[i].choosed] === this.setOfQA[i].correctAnswer) {
-            
-          }
+      for (let i = 0; i < this.setOfQA.length; i++) {
+        if (
+          this.setOfQA[i].options[this.setOfQA[i].choosed] ===
+          this.setOfQA[i].correctAnswer
+        ) {
+        }
       }
     }
   }
 
   decodeHtml(html: string) {
-    let parser = new DOMParser().parseFromString(html, "text/html")
-    let output =  parser.documentElement.textContent;
+    let parser = new DOMParser().parseFromString(html, 'text/html');
+    let output = parser.documentElement.textContent;
     return output;
   }
-  
+
   onLoad() {
-    this.storageService.quizData.splice(0,1);
+    this.storageService.quizData.splice(0, 1);
     this.loading = true;
 
     // Trivia API :- https://opentdb.com/api_config.php
-    this.http.get<Questions>('https://opentdb.com/api.php?amount=' + this.numOfQuestions + '&type=multiple&difficulty=' + this.storageService.dificulty + '&category=' + this.storageService.topic)
-    .pipe(map(
-      responseData => {
-        const results = [];
-        results.push(...responseData.results)
-        return results
-      }
-    ))
-    .subscribe(
-      (results) => {
-        for(let i = 0; i < this.numOfQuestions; i++) {
-          
+    this.http
+      .get<Questions>(
+        'https://opentdb.com/api.php?amount=' +
+          this.numOfQuestions +
+          '&type=multiple&difficulty=' +
+          this.storageService.dificulty +
+          '&category=' +
+          this.storageService.topic,
+      )
+      .pipe(
+        map((responseData) => {
+          const results = [];
+          results.push(...responseData.results);
+          return results;
+        }),
+      )
+      .subscribe((results) => {
+        for (let i = 0; i < this.numOfQuestions; i++) {
           // sort the results retrived from API into local Array in random order
-          let retrivedAnswers = []
+          let retrivedAnswers = [];
           retrivedAnswers.push(
-            (<string>this.decodeHtml(results[i].correct_answer)), 
-            (<string>this.decodeHtml(results[i].incorrect_answers[0])), 
-            (<string>this.decodeHtml(results[i].incorrect_answers[1])), 
-            (<string>this.decodeHtml(results[i].incorrect_answers[2]))
-            );
-          let randomAnswer = retrivedAnswers.sort((a, b) => {  
+            <string>this.decodeHtml(results[i].correct_answer),
+            <string>this.decodeHtml(results[i].incorrect_answers[0]),
+            <string>this.decodeHtml(results[i].incorrect_answers[1]),
+            <string>this.decodeHtml(results[i].incorrect_answers[2]),
+          );
+          let randomAnswer = retrivedAnswers.sort((a, b) => {
             return 0.5 - Math.random();
-          })
+          });
 
-        this.storageService.quizData.push({
-            question: (<string>this.decodeHtml(results[i].question)), 
+          this.storageService.quizData.push({
+            question: <string>this.decodeHtml(results[i].question),
             options: [
               randomAnswer[0],
               randomAnswer[1],
               randomAnswer[2],
-              randomAnswer[3]
-            ], 
+              randomAnswer[3],
+            ],
             choosed: 5,
-            correctAnswer: (<string>this.decodeHtml(results[i].correct_answer))
-          })
+            correctAnswer: <string>this.decodeHtml(results[i].correct_answer),
+          });
         }
-        this.setOfQA.push(...this.storageService.quizData)
+        this.setOfQA.push(...this.storageService.quizData);
         this.loading = false;
-        }
-      )
-    }
+      });
+  }
 
   onNext(text: string) {
-    if(text == 'Next') {
+    if (text == 'Next') {
       if (this.questionNo < this.storageService.quizData.length) {
         this.questionNo += 1;
         this.choosedId = this.setOfQA[this.questionNo].choosed;
       }
       this.updateAnswered();
     } else {
-      this.onSubmit()
+      this.onSubmit();
     }
-    this.checkSubmitReady()
+    this.checkSubmitReady();
   }
 
   onPrevious() {
@@ -134,22 +151,22 @@ export class QuizComponent implements OnInit {
     this.updateAnswered();
     this.checkSubmitReady();
   }
-  
+
   goToQuestion(n: number) {
     this.questionNo = n;
     this.choosedId = this.setOfQA[this.questionNo].choosed;
-    this.checkSubmitReady()
+    this.checkSubmitReady();
   }
 
   optionChoosed(i: number) {
-    if(!this.storageService.noMoreEdit) {
+    if (!this.storageService.noMoreEdit) {
       this.choosedId = i;
       this.setOfQA[this.questionNo].choosed = i;
       this.storageService.quizData[this.questionNo].choosed = i;
     } else {
-      alert('Answer cannot be modified after viewing the results')
+      alert('Answer cannot be modified after viewing the results');
     }
-    this.checkSubmitReady()
+    this.checkSubmitReady();
   }
 
   onSubmit() {
@@ -158,7 +175,7 @@ export class QuizComponent implements OnInit {
     }
     let unanswered: boolean = false;
     for (let i = 0; i < this.setOfQA.length; i++) {
-      if(this.setOfQA[i].choosed == 5) {
+      if (this.setOfQA[i].choosed == 5) {
         unanswered = true;
         this.unansweredQuestionNumbers.push(i);
       } else {
@@ -170,15 +187,14 @@ export class QuizComponent implements OnInit {
     }
     this.updateAnswered();
     for (let i = 0; i < this.unansweredQuestionNumbers.length; i++) {}
-    if(unanswered) {
-      alert('Not All questions are answered.')
+    if (unanswered) {
+      alert('Not All questions are answered.');
     } else {
-      this.validation()
+      this.validation();
     }
   }
 
   updateAnswered() {
-    console.log(this.unansweredQuestionNumbers);
     let elements = document.getElementsByClassName('pageNumber');
     for (let i = 0; i < this.setOfQA.length; i++) {
       elements[i].classList.remove('unanswered');
@@ -190,24 +206,30 @@ export class QuizComponent implements OnInit {
 
   // Enable submit button to work only if all the questions are answered. Checked each time for all kind of events
   checkSubmitReady() {
-    this.enableSubmit = true
-        for(let i = 0;i< this.storageService.quizData.length;i++) {
-          if(this.storageService.quizData[i].choosed == 5) {
-            this.enableSubmit = false;
-          }
-        }
+    this.enableSubmit = true;
+    for (let i = 0; i < this.storageService.quizData.length; i++) {
+      if (this.storageService.quizData[i].choosed == 5) {
+        this.enableSubmit = false;
+      }
+    }
   }
 
   validation() {
     this.storageService.correctAnswers = 0;
-    for(let i = 0;i < this.setOfQA.length; i++) {
-      if(this.setOfQA[i].options[this.setOfQA[i].choosed] == this.storageService.quizData[i].correctAnswer) {
-        console.log('correct Answer')
+    for (let i = 0; i < this.setOfQA.length; i++) {
+      if (
+        this.setOfQA[i].options[this.setOfQA[i].choosed] ==
+        this.storageService.quizData[i].correctAnswer
+      ) {
+        console.log('correct Answer');
         this.storageService.correctAnswers++;
       }
     }
-    this.storageService.result = (this.storageService.correctAnswers > this.setOfQA.length * .5 ? 'Pass' : 'Fail')
+    this.storageService.result =
+      this.storageService.correctAnswers > this.setOfQA.length * 0.5
+        ? 'Pass'
+        : 'Fail';
     this.storageService.noMoreEdit = true;
-    this.router.navigate(['/result'])
+    this.router.navigate(['/result']);
   }
 }

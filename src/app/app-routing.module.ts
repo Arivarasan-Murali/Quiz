@@ -5,14 +5,14 @@ import { QuizComponent } from './quiz/quiz.component';
 import { ResultComponent } from './result/result.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'quiz', component: QuizComponent},
-  {path: 'result', component: ResultComponent},
-  {path: '**', component: HomeComponent}
+  { path: '', component: HomeComponent },
+  { path: 'quiz', component: QuizComponent },
+  { path: 'result', component: ResultComponent },
+  { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

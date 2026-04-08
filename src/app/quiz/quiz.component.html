@@ -2,59 +2,77 @@
   <div class="quizContainer">
     <div class="qawrapper">
       <div class="question">
-        {{questionNo + 1 + ') ' + setOfQA[questionNo].question}}
-      </div >
+        {{ questionNo + 1 + ") " + setOfQA[questionNo].question }}
+      </div>
       @for (A of setOfQA[questionNo].options; track A; let i = $index) {
-        <div class="option"
+        <div
+          class="option"
           (click)="optionChoosed(i)"
-        [ngClass]="{
-          'selected': choosedId == i && !noMoreEdit,
-          'wrongAnswer': choosedId == i && noMoreEdit,
-          'correctAnswer': A === setOfQA[questionNo].correctAnswer && noMoreEdit
-        }"
-          >
-          {{A}}
+          [ngClass]="{
+            selected: choosedId == i && !noMoreEdit,
+            wrongAnswer: choosedId == i && noMoreEdit,
+            correctAnswer:
+              A === setOfQA[questionNo].correctAnswer && noMoreEdit,
+          }"
+        >
+          {{ A }}
         </div>
       }
-      <br>
-        <div class="navigation">
-          <button
-            class="navBtn previous"
-            [hidden]='questionNo == 0'
-            (click)="onPrevious()"
+      <br />
+      <div class="navigation">
+        <button
+          class="navBtn previous"
+          [hidden]="questionNo == 0"
+          (click)="onPrevious()"
+        >
+          Previous
+        </button>
+        <div class="pageNumContainer">
+          @for (question of setOfQA; track question; let i = $index) {
+            <div
+              class="pageNumber"
+              (click)="goToQuestion(i)"
+              [ngClass]="{ current: questionNo == i }"
             >
-            Previous
-          </button>
-          <div class="pageNumContainer">
-            @for (question of setOfQA; track question; let i = $index) {
-              <div class="pageNumber"
-                (click)='goToQuestion(i);'
-                [ngClass]="{'current': questionNo == i}"
-                >
-                {{i + 1}}
-              </div>
-            }
-          </div>
-          @if (!(noMoreEdit && questionNo == numOfQuestions-1)) {
-            <button
-              class="navBtn next"
-              (click)="onNext(((questionNo == numOfQuestions-1) || enableSubmit) && !noMoreEdit? 'Submit' : 'Next' )"
-              [ngClass]="{'submit': (questionNo == numOfQuestions-1 || enableSubmit) && !noMoreEdit}"
-              >
-              {{ ((questionNo == numOfQuestions-1) || enableSubmit) && !noMoreEdit ? 'Submit' : 'Next' }}
-            </button>
+              {{ i + 1 }}
+            </div>
           }
         </div>
+        @if (!(noMoreEdit && questionNo == numOfQuestions - 1)) {
+          <button
+            class="navBtn next"
+            (click)="
+              onNext(
+                (questionNo == numOfQuestions - 1 || enableSubmit) &&
+                  !noMoreEdit
+                  ? 'Submit'
+                  : 'Next'
+              )
+            "
+            [ngClass]="{
+              submit:
+                (questionNo == numOfQuestions - 1 || enableSubmit) &&
+                !noMoreEdit,
+            }"
+          >
+            {{
+              (questionNo == numOfQuestions - 1 || enableSubmit) && !noMoreEdit
+                ? "Submit"
+                : "Next"
+            }}
+          </button>
+        }
       </div>
     </div>
-  }
-  @if ((setOfQA.length < 2) && loading == false) {
-    <div class="noQuizContainer">
-      <p>Page got refreshed unfortunately. Please navigate back to home.</p>
-    </div>
-  }
-  @if (loading) {
-    <div class="loading">
-      <p>Loading . . .</p>
-    </div>
-  }
+  </div>
+}
+@if (setOfQA.length < 2 && loading == false) {
+  <div class="noQuizContainer">
+    <p>Page got refreshed unfortunately. Please navigate back to home.</p>
+  </div>
+}
+@if (loading) {
+  <div class="loading">
+    <p>Loading . . .</p>
+  </div>
+}

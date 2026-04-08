@@ -1,6 +1,6 @@
 export class catogories {
-        id: number; 
-        name: string
+  id: number;
+  name: string;
 
-      constructor() {}
+  constructor() {}
 }

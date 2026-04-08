@@ -1,15 +1,11 @@
 <div id="resultContainer">
-  @if (result !== '') {
+  @if (result !== "") {
     <div class="resultText">
-      <div class="result">
-        {{correctAnswers}} / {{totalQuestions}}
-      </div>
-      You {{result}}ed the Quiz !
-      <br>
-        <br>
-          <div class="review" (click)="reviewResult()">
-            Review answers
-          </div>
-        </div>
-      }
+      <div class="result">{{ correctAnswers }} / {{ totalQuestions }}</div>
+      You {{ result }}ed the Quiz !
+      <br />
+      <br />
+      <div class="review" (click)="reviewResult()">Review answers</div>
     </div>
+  }
+</div>
