@@ -1,13 +1,15 @@
 <div id="resultContainer">
-        <div class="resultText" *ngIf="result !== ''">
-            <div class="result">
-                {{correctAnswers}} / {{totalQuestions}}
-            </div>
-            You {{result}}ed the Quiz !
-            <br>
-            <br>
-            <div class="review" (click)="reviewResult()">
-                Review answers
-            </div>
+  @if (result !== '') {
+    <div class="resultText">
+      <div class="result">
+        {{correctAnswers}} / {{totalQuestions}}
+      </div>
+      You {{result}}ed the Quiz !
+      <br>
+        <br>
+          <div class="review" (click)="reviewResult()">
+            Review answers
+          </div>
         </div>
-</div>
+      }
+    </div>
