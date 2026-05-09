@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "dist\\quiz",
+    "public": "dist/quiz/browser",
+    "site": "quiz-132",
     "ignore": [
       "firebase.json",
       "**/.*",
