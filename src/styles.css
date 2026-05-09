@@ -10,6 +10,7 @@
   --card-bg: white;
   --button-bg: var(--primary);
   --button-text: var(--cornsilk);
+  --selected-bg: var(--light-caramel);
 }
 
 .dark-theme {
@@ -18,6 +19,7 @@
   --card-bg: var(--light-caramel);
   --button-bg: var(--secondary);
   --button-text: var(--back-forest);
+  --selected-bg: var(--primary);
 }
 
 * {

@@ -53,7 +53,7 @@
 
 .selected {
   border: 0.5px solid var(--secondary);
-  background-color: var(--light-caramel);
+  background-color: var(--selected-bg);
 }
 
 .navigation {
