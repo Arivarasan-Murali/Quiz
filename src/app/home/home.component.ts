@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../storage.service';
 
-import { catogories } from './catogory.model';
+import { categories } from './category.model';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   level: string = '';
   launch: boolean = false;
 
-  catagory: catogories[];
+  catagory: categories[];
 
   constructor(
     private storageService: StorageService,
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
       {
         question: '',
         options: ['', '', '', ''],
-        choosed: 5,
+        chosen: 5,
         correctAnswer: '',
       },
     ];
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
 
   chooseLevel(level: string) {
     this.level = level;
-    this.storageService.dificulty = level;
+    this.storageService.difficulty = level;
     localStorage.setItem('level', level);
 
     document.getElementById('easy')?.classList.remove('active');

@@ -7,10 +7,10 @@
       @for (A of setOfQA[questionNo].options; track A; let i = $index) {
         <div
           class="option"
-          (click)="optionChoosed(i)"
+          (click)="optionChosen(i)"
           [ngClass]="{
-            selected: choosedId == i && !noMoreEdit,
-            wrongAnswer: choosedId == i && noMoreEdit,
+            selected: chosenId == i && !noMoreEdit,
+            wrongAnswer: chosenId == i && noMoreEdit,
             correctAnswer:
               A === setOfQA[questionNo].correctAnswer && noMoreEdit,
           }"

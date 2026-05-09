@@ -1,4 +1,4 @@
-export class catogories {
+export class categories {
   id: number;
   name: string;
 

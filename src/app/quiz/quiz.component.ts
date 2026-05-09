@@ -15,7 +15,7 @@ import { Questions } from './question.model';
 export class QuizComponent implements OnInit {
   numOfQuestions: number = 0;
   questionNo: number = 0;
-  choosedId: number = 5;
+  chosenId: number = 5;
   loading: boolean = false;
   noMoreEdit: boolean = false;
   enableSubmit: boolean = false;
@@ -25,7 +25,7 @@ export class QuizComponent implements OnInit {
     {
       question: string;
       options: [string, string, string, string];
-      choosed: number;
+      chosen: number;
       correctAnswer: string;
     },
   ];
@@ -42,29 +42,29 @@ export class QuizComponent implements OnInit {
       {
         question: '',
         options: ['', '', '', ''],
-        choosed: 5,
+        chosen: 5,
         correctAnswer: '',
       },
     ];
     this.setOfQA.splice(0, 1);
     if (localStorage.getItem('catagory') != null) {
       this.storageService.topic = localStorage.getItem('catagory');
-      this.storageService.dificulty = localStorage.getItem('level');
+      this.storageService.difficulty = localStorage.getItem('level');
     }
     if (
       this.storageService.topic &&
-      this.storageService.dificulty &&
+      this.storageService.difficulty &&
       !this.storageService.noMoreEdit
     ) {
       this.onLoad();
     }
     if (this.storageService.noMoreEdit) {
       this.setOfQA.push(...this.storageService.quizData);
-      this.choosedId = this.setOfQA[this.questionNo].choosed;
+      this.chosenId = this.setOfQA[this.questionNo].chosen;
       this.noMoreEdit = true;
       for (let i = 0; i < this.setOfQA.length; i++) {
         if (
-          this.setOfQA[i].options[this.setOfQA[i].choosed] ===
+          this.setOfQA[i].options[this.setOfQA[i].chosen] ===
           this.setOfQA[i].correctAnswer
         ) {
         }
@@ -88,7 +88,7 @@ export class QuizComponent implements OnInit {
         'https://opentdb.com/api.php?amount=' +
           this.numOfQuestions +
           '&type=multiple&difficulty=' +
-          this.storageService.dificulty +
+          this.storageService.difficulty +
           '&category=' +
           this.storageService.topic,
       )
@@ -121,7 +121,7 @@ export class QuizComponent implements OnInit {
               randomAnswer[2],
               randomAnswer[3],
             ],
-            choosed: 5,
+            chosen: 5,
             correctAnswer: <string>this.decodeHtml(results[i].correct_answer),
           });
         }
@@ -134,7 +134,7 @@ export class QuizComponent implements OnInit {
     if (text == 'Next') {
       if (this.questionNo < this.storageService.quizData.length) {
         this.questionNo += 1;
-        this.choosedId = this.setOfQA[this.questionNo].choosed;
+        this.chosenId = this.setOfQA[this.questionNo].chosen;
       }
       this.updateAnswered();
     } else {
@@ -146,7 +146,7 @@ export class QuizComponent implements OnInit {
   onPrevious() {
     if (this.questionNo != 0) {
       this.questionNo -= 1;
-      this.choosedId = this.setOfQA[this.questionNo].choosed;
+      this.chosenId = this.setOfQA[this.questionNo].chosen;
     }
     this.updateAnswered();
     this.checkSubmitReady();
@@ -154,15 +154,15 @@ export class QuizComponent implements OnInit {
 
   goToQuestion(n: number) {
     this.questionNo = n;
-    this.choosedId = this.setOfQA[this.questionNo].choosed;
+    this.chosenId = this.setOfQA[this.questionNo].chosen;
     this.checkSubmitReady();
   }
 
-  optionChoosed(i: number) {
+  optionChosen(i: number) {
     if (!this.storageService.noMoreEdit) {
-      this.choosedId = i;
-      this.setOfQA[this.questionNo].choosed = i;
-      this.storageService.quizData[this.questionNo].choosed = i;
+      this.chosenId = i;
+      this.setOfQA[this.questionNo].chosen = i;
+      this.storageService.quizData[this.questionNo].chosen = i;
     } else {
       alert('Answer cannot be modified after viewing the results');
     }
@@ -175,7 +175,7 @@ export class QuizComponent implements OnInit {
     }
     let unanswered: boolean = false;
     for (let i = 0; i < this.setOfQA.length; i++) {
-      if (this.setOfQA[i].choosed == 5) {
+      if (this.setOfQA[i].chosen == 5) {
         unanswered = true;
         this.unansweredQuestionNumbers.push(i);
       } else {
@@ -208,7 +208,7 @@ export class QuizComponent implements OnInit {
   checkSubmitReady() {
     this.enableSubmit = true;
     for (let i = 0; i < this.storageService.quizData.length; i++) {
-      if (this.storageService.quizData[i].choosed == 5) {
+      if (this.storageService.quizData[i].chosen == 5) {
         this.enableSubmit = false;
       }
     }
@@ -218,7 +218,7 @@ export class QuizComponent implements OnInit {
     this.storageService.correctAnswers = 0;
     for (let i = 0; i < this.setOfQA.length; i++) {
       if (
-        this.setOfQA[i].options[this.setOfQA[i].choosed] ==
+        this.setOfQA[i].options[this.setOfQA[i].chosen] ==
         this.storageService.quizData[i].correctAnswer
       ) {
         console.log('correct Answer');

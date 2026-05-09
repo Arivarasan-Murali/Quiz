@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class StorageService {
   topic: string | null = null;
-  dificulty: string | null = null;
+  difficulty: string | null = null;
   result: string | null = null; // Store PASS or FAIL
   noMoreEdit: boolean = false; // To prevent editing after the results are displayed
   correctAnswers: number = 0; // To display the number of questions answered correctly
@@ -13,14 +13,14 @@ export class StorageService {
     {
       question: string;
       options: [string, string, string, string];
-      choosed: number;
+      chosen: number;
       correctAnswer: string;
     },
   ] = [
     {
       question: '',
       options: ['', '', '', ''],
-      choosed: 5,
+      chosen: 5,
       correctAnswer: '',
     },
   ];
