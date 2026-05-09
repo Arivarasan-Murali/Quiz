@@ -9,19 +9,10 @@ export class StorageService {
   correctAnswers: number = 0; // To display the number of questions answered correctly
   numberOfQuestions: number = 10; // To control how many number of questions to be fetched from API
 
-  quizData: [
-    {
-      question: string;
-      options: [string, string, string, string];
-      chosen: number;
-      correctAnswer: string;
-    },
-  ] = [
-    {
-      question: '',
-      options: ['', '', '', ''],
-      chosen: 5,
-      correctAnswer: '',
-    },
-  ];
+  quizData: {
+    question: string;
+    options: [string, string, string, string];
+    chosen: number;
+    correctAnswer: string;
+  }[] = [];
 }

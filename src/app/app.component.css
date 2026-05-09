@@ -7,8 +7,11 @@
   padding: 1rem;
   font-size: 2rem;
   height: 5rem;
-  background-color: purple;
-  color: yellow;
+  background-color: var(--primary);
+  color: var(--cornsilk);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .home {
@@ -18,4 +21,19 @@
   font-size: medium;
   vertical-align: middle;
   cursor: pointer;
+  color: var(--cornsilk);
+}
+
+.theme-toggle {
+  background-color: var(--secondary);
+  color: var(--cornsilk);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.theme-toggle:hover {
+  background-color: var(--light-caramel);
 }

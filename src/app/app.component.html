@@ -2,6 +2,7 @@
   <div class="titleBar">
     <span class="home" routerLink="" (click)="onLoadHome()">Home</span>
     <span class="title">Quiz</span>
+    <button class="theme-toggle" (click)="toggleTheme()">{{ isDarkTheme ? 'Light' : 'Dark' }}</button>
   </div>
   <router-outlet></router-outlet>
 </div>

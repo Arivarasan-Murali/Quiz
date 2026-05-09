@@ -1,5 +1,5 @@
 .quiz-topics {
-  background-color: rgba(225, 158, 241, 0.5);
+  background-color: var(--light-caramel);
   display: flex;
   justify-content: center;
 }
@@ -7,6 +7,7 @@
 .topic {
   padding: 1rem 2rem;
   font-size: 1rem;
+  color: var(--back-forest);
 }
 
 .option,
@@ -17,14 +18,14 @@ button,
 }
 
 .topic:hover {
-  background-color: purple;
-  box-shadow: 2px 2px 2px 2px grey;
+  background-color: var(--secondary);
+  box-shadow: 2px 2px 2px 2px var(--back-forest);
   border-radius: 0 0 2rem 2rem;
-  color: white;
+  color: var(--cornsilk);
 }
 
 .topic:active {
-  background-color: purple;
+  background-color: var(--secondary);
   box-shadow: none;
 }
 
@@ -35,7 +36,7 @@ button,
 }
 
 .homeContainer {
-  background-color: rgba(129, 245, 220, 0.5);
+  background-color: var(--background);
   height: 100vh;
   width: 100vw;
 }
@@ -49,33 +50,41 @@ button,
   display: inline-block;
   padding: 0.5rem;
   margin: 0.25rem 0.5rem;
-  box-shadow: 2px 2px 2px 2px rgb(78, 189, 133);
+  box-shadow: 2px 2px 2px 2px var(--primary);
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid var(--back-forest);
+  background-color: var(--cornsilk);
+  color: var(--back-forest);
 }
 
 #easy {
-  background-color: yellowgreen;
+  background-color: var(--primary);
+  color: var(--cornsilk);
 }
 
 #medium {
-  background-color: orange;
+  background-color: var(--secondary);
+  color: var(--cornsilk);
 }
 
 #hard {
-  background-color: rgb(214, 53, 53);
+  background-color: var(--back-forest);
+  color: var(--cornsilk);
 }
 
 button {
-  box-shadow: 2px 2px 2px 2px grey;
+  box-shadow: 2px 2px 2px 2px var(--back-forest);
 }
 
 #launch {
-  border: 1px solid black;
+  border: 1px solid var(--back-forest);
+  background-color: var(--primary);
+  color: var(--cornsilk);
 }
 
 #launch[disabled] {
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .active {
@@ -84,22 +93,23 @@ button {
 }
 
 .card {
-  background-color: rgb(7, 145, 99);
+  background-color: var(--card-bg);
   max-width: 40rem;
   min-height: 20rem;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 5px 3px 5px grey;
+  box-shadow: 5px 3px 5px var(--back-forest);
+  color: var(--text);
 }
 
 .cardTitle {
   font-size: 2rem;
   padding: 1rem;
   text-align: center;
-  background-color: black;
-  color: white;
+  background-color: var(--primary);
+  color: var(--cornsilk);
   margin-bottom: 1rem;
 }
 
@@ -109,7 +119,7 @@ button {
 }
 
 .link {
-  color: blue;
+  color: var(--secondary);
   cursor: pointer;
 }
 
@@ -122,13 +132,14 @@ button {
 
 .cardContent button {
   border: none;
-  background-color: skyblue;
+  background-color: var(--primary);
   padding: 0.5rem;
   border-radius: 1rem;
   position: absolute;
   left: 50%;
   transform: translate(-50%);
   bottom: 10%;
+  color: var(--cornsilk);
 }
 
 @media (max-width: 500px) {

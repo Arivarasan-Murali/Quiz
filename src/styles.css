@@ -1,4 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary: #606C38;
+  --secondary: #BC6C25;
+  --cornsilk: #FEFAE0;
+  --light-caramel: #DDA15E;
+  --back-forest: #283618;
+  --background: var(--cornsilk);
+  --text: var(--back-forest);
+  --card-bg: white;
+  --button-bg: var(--primary);
+  --button-text: var(--cornsilk);
+}
+
+.dark-theme {
+  --background: var(--back-forest);
+  --text: var(--cornsilk);
+  --card-bg: var(--light-caramel);
+  --button-bg: var(--secondary);
+  --button-text: var(--back-forest);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,8 +27,10 @@
 }
 
 body {
-  overflow: hidden;
-  z-index: 1;
+  background-color: var(--background);
+  color: var(--text);
+  overflow: auto;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .desktopMode {

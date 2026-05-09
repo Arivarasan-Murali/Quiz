@@ -1,7 +1,8 @@
 .noQuizContainer {
   height: 100%;
   width: 100%;
-  background-color: rgb(243, 151, 231);
+  background-color: var(--light-caramel);
+  color: var(--back-forest);
 }
 
 .noQuizContainer p,
@@ -19,7 +20,7 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: aquamarine;
+  background-color: var(--background);
 }
 
 .qawrapper {
@@ -32,24 +33,27 @@
 .question {
   padding: 0 0 1rem 0.5rem;
   font-size: 1.5rem;
-  background-color: white;
+  background-color: var(--card-bg);
+  color: var(--text);
 }
 
 .option {
   padding: 0.75rem;
-  background-color: white;
+  background-color: var(--card-bg);
   vertical-align: middle;
   margin-top: 1px;
   cursor: pointer;
+  color: var(--text);
+  border: 1px solid var(--back-forest);
 }
 
 .option:hover {
-  border: 0.5px solid grey;
+  border: 0.5px solid var(--secondary);
 }
 
 .selected {
-  border: 0.5px solid grey;
-  background-color: aqua;
+  border: 0.5px solid var(--secondary);
+  background-color: var(--light-caramel);
 }
 
 .navigation {
@@ -61,11 +65,11 @@
 .navBtn {
   position: absolute;
   padding: 0.5rem 2rem;
-  background-color: rgb(40, 241, 158);
-  border: 1px solid green;
-  box-shadow: 1px 1px 3px green;
+  background-color: var(--primary);
+  border: 1px solid var(--secondary);
+  box-shadow: 1px 1px 3px var(--secondary);
   cursor: pointer;
-  z-index: 2;
+  color: var(--cornsilk);
 }
 
 .previous {
@@ -77,7 +81,7 @@
 }
 
 .submit {
-  background-color: orange;
+  background-color: var(--secondary);
 }
 
 .navBtn:active {
@@ -100,29 +104,31 @@
   width: 2rem;
   height: 2rem;
   margin: 0 auto;
-  border: 1px solid black;
+  border: 1px solid var(--back-forest);
   border-radius: 2rem;
   text-align: center;
-  background-color: green;
-  color: white;
+  background-color: var(--primary);
+  color: var(--cornsilk);
   cursor: pointer;
 }
 
 .unanswered {
-  background-color: rgb(255, 102, 0);
-  color: white;
+  background-color: var(--secondary);
+  color: var(--cornsilk);
 }
 
 .current {
   font-weight: 800;
-  background-color: white;
-  color: green;
+  background-color: var(--card-bg);
+  color: var(--primary);
 }
 
 .wrongAnswer {
-  background-color: red;
+  background-color: #ff6b6b;
+  color: var(--back-forest);
 }
 
 .correctAnswer {
-  background-color: greenyellow;
+  background-color: var(--primary);
+  color: var(--cornsilk);
 }

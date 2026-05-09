@@ -24,16 +24,13 @@ export class ResultComponent implements OnInit {
     this.correctAnswers = this.storageService.correctAnswers;
 
     // To prevent page load, If the webpage is refreshed in Result page or the route is manually entered in URL
-    if (this.result == null) {
+    if (this.result == null || this.totalQuestions === 0) {
       this.router.navigate(['/']);
     }
 
-    document.body.style.backgroundColor =
-      this.result === 'Pass' ? 'greenyellow' : 'rgb(253, 95, 83)';
   }
 
   reviewResult() {
     this.router.navigate(['/quiz']);
-    document.body.style.backgroundColor = 'rgba(129, 245, 220, 0.5)';
   }
 }

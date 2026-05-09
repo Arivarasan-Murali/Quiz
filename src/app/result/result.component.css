@@ -1,5 +1,7 @@
 .resultContainer {
   height: 100%;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 .result {
@@ -17,12 +19,14 @@
 }
 
 .review {
-  margin-top: 2erm;
+  margin-top: 2rem;
   padding: 1rem;
-  background-color: white;
-  border: 1px solid black;
-  box-shadow: 2px 2px 2px grey;
+  background-color: var(--primary);
+  border: 1px solid var(--back-forest);
+  box-shadow: 2px 2px 2px var(--back-forest);
   cursor: pointer;
+  color: var(--cornsilk);
+  border-radius: 0.5rem;
 }
 
 .review:active {

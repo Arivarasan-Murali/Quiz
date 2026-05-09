@@ -43,14 +43,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.storageService.quizData = [
-      {
-        question: '',
-        options: ['', '', '', ''],
-        chosen: 5,
-        correctAnswer: '',
-      },
-    ];
+    this.storageService.quizData = [];
   }
 
   onClickTopic(i: number) {
@@ -59,7 +52,7 @@ export class HomeComponent implements OnInit {
     this.launch = false;
     this.chooseLevel('');
     this.storageService.topic = this.topics[i].id.toString();
-    localStorage.setItem('catagory', this.topics[i].id.toString());
+    localStorage.setItem('category', this.topics[i].id.toString());
     setTimeout(() => {
       //Dummy timer to check the input field after it has been loaded into DOM
       (<HTMLInputElement>document.getElementById('check')).checked = false;

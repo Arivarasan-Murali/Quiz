@@ -21,14 +21,12 @@ export class QuizComponent implements OnInit {
   enableSubmit: boolean = false;
   unansweredQuestionNumbers: number[] = [15];
 
-  setOfQA: [
-    {
-      question: string;
-      options: [string, string, string, string];
-      chosen: number;
-      correctAnswer: string;
-    },
-  ];
+  setOfQA: {
+    question: string;
+    options: [string, string, string, string];
+    chosen: number;
+    correctAnswer: string;
+  }[];
 
   constructor(
     private http: HttpClient,
@@ -38,17 +36,9 @@ export class QuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.numOfQuestions = this.storageService.numberOfQuestions;
-    this.setOfQA = [
-      {
-        question: '',
-        options: ['', '', '', ''],
-        chosen: 5,
-        correctAnswer: '',
-      },
-    ];
-    this.setOfQA.splice(0, 1);
-    if (localStorage.getItem('catagory') != null) {
-      this.storageService.topic = localStorage.getItem('catagory');
+    this.setOfQA = [];
+    if (localStorage.getItem('category') != null) {
+      this.storageService.topic = localStorage.getItem('category');
       this.storageService.difficulty = localStorage.getItem('level');
     }
     if (
@@ -59,7 +49,7 @@ export class QuizComponent implements OnInit {
       this.onLoad();
     }
     if (this.storageService.noMoreEdit) {
-      this.setOfQA.push(...this.storageService.quizData);
+      this.setOfQA = [...this.storageService.quizData];
       this.chosenId = this.setOfQA[this.questionNo].chosen;
       this.noMoreEdit = true;
       for (let i = 0; i < this.setOfQA.length; i++) {
@@ -79,7 +69,7 @@ export class QuizComponent implements OnInit {
   }
 
   onLoad() {
-    this.storageService.quizData.splice(0, 1);
+    this.storageService.quizData = [];
     this.loading = true;
 
     // Trivia API :- https://opentdb.com/api_config.php
@@ -125,14 +115,14 @@ export class QuizComponent implements OnInit {
             correctAnswer: <string>this.decodeHtml(results[i].correct_answer),
           });
         }
-        this.setOfQA.push(...this.storageService.quizData);
+        this.setOfQA = [...this.storageService.quizData];
         this.loading = false;
       });
   }
 
   onNext(text: string) {
     if (text == 'Next') {
-      if (this.questionNo < this.storageService.quizData.length) {
+      if (this.questionNo < this.setOfQA.length - 1) {
         this.questionNo += 1;
         this.chosenId = this.setOfQA[this.questionNo].chosen;
       }
@@ -226,7 +216,7 @@ export class QuizComponent implements OnInit {
       }
     }
     this.storageService.result =
-      this.storageService.correctAnswers > this.setOfQA.length * 0.5
+      this.storageService.correctAnswers >= this.setOfQA.length * 0.5
         ? 'Pass'
         : 'Fail';
     this.storageService.noMoreEdit = true;
