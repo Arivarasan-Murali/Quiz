@@ -1,6 +1,10 @@
 <div class="quiz-topics">
   @for (topic of topics; track topic; let i = $index) {
-    <div class="topic" (click)="onClickTopic(i)">
+    <div
+      class="topic"
+      [ngClass]="{ selectedTopic: selectedTopicIndex === i }"
+      (click)="onClickTopic(i)"
+    >
       {{ topic.name }}
     </div>
   }
@@ -21,11 +25,13 @@
       <div class="cardContent">
         {{ cardContent }}
         <p style="text-align: center; padding: 1rem">Choose difficulty level</p>
-        <div class="option" id="easy" (click)="chooseLevel('easy')">Easy</div>
-        <div class="option" id="medium" (click)="chooseLevel('medium')">
-          Medium
+        <div class="difficultyGroup">
+          <div class="option" id="easy" (click)="chooseLevel('easy')">Easy</div>
+          <div class="option" id="medium" (click)="chooseLevel('medium')">
+            Medium
+          </div>
+          <div class="option" id="hard" (click)="chooseLevel('hard')">Hard</div>
         </div>
-        <div class="option" id="hard" (click)="chooseLevel('hard')">Hard</div>
         <div class="aggrement">
           <input
             type="checkbox"

@@ -18,50 +18,65 @@
           {{ A }}
         </div>
       }
-      <br />
       <div class="navigation">
         <button
           class="navBtn previous"
           [hidden]="questionNo == 0"
           (click)="onPrevious()"
         >
-          Previous
+          ←
         </button>
-        <div class="pageNumContainer">
-          @for (question of setOfQA; track question; let i = $index) {
+        <div class="pageNumContainer desktop">
+          @for (question of setOfQA; track i; let i = $index) {
             <div
               class="pageNumber"
               (click)="goToQuestion(i)"
-              [ngClass]="{ current: questionNo == i }"
+              [ngClass]="{
+                current: questionNo == i
+              }"
             >
               {{ i + 1 }}
             </div>
           }
         </div>
-        @if (!(noMoreEdit && questionNo == numOfQuestions - 1)) {
-          <button
-            class="navBtn next"
-            (click)="
-              onNext(
-                (questionNo == numOfQuestions - 1 || enableSubmit) &&
-                  !noMoreEdit
-                  ? 'Submit'
-                  : 'Next'
-              )
-            "
-            [ngClass]="{
-              submit:
-                (questionNo == numOfQuestions - 1 || enableSubmit) &&
-                !noMoreEdit,
-            }"
-          >
-            {{
-              (questionNo == numOfQuestions - 1 || enableSubmit) && !noMoreEdit
-                ? "Submit"
-                : "Next"
-            }}
-          </button>
-        }
+        <div class="pageNumContainer mobile">
+          @for (question of setOfQA; track i; let i = $index) {
+            <div
+              class="pageNumber"
+              (click)="goToQuestion(i)"
+              [ngClass]="{
+                current: questionNo == i,
+                prev: i === questionNo - 1,
+                next: i === questionNo + 1
+              }"
+              [class.unanswered]="unansweredQuestionNumbers.includes(i)"
+            >
+              {{ i + 1 }}
+            </div>
+          }
+        </div>
+        <button
+          class="navBtn next"
+          (click)="
+            onNext(
+              (questionNo == numOfQuestions - 1 || enableSubmit) &&
+                !noMoreEdit
+                ? 'Submit'
+                : 'Next'
+            )
+          "
+          [ngClass]="{
+            submit:
+              (questionNo == numOfQuestions - 1 || enableSubmit) &&
+              !noMoreEdit,
+          }"
+        >
+          {{
+            (questionNo == numOfQuestions - 1 || enableSubmit) && !noMoreEdit
+              ? "✓"
+              : "→"
+          }}
+        </button>
       </div>
     </div>
   </div>

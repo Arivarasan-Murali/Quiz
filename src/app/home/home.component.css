@@ -2,12 +2,17 @@
   background-color: var(--light-caramel);
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
 }
 
 .topic {
   padding: 1rem 2rem;
   font-size: 1rem;
   color: var(--back-forest);
+  border-radius: 1rem;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
 }
 
 .option,
@@ -20,8 +25,29 @@ button,
 .topic:hover {
   background-color: var(--secondary);
   box-shadow: 2px 2px 2px 2px var(--back-forest);
-  border-radius: 0 0 2rem 2rem;
+  border-radius: 1rem;
   color: var(--cornsilk);
+  transform: translateY(-1px);
+}
+
+.topic.selectedTopic {
+  background-color: var(--secondary);
+  color: var(--cornsilk);
+  box-shadow: 2px 2px 2px 2px var(--back-forest);
+}
+
+.difficultyGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.difficultyGroup .option {
+  flex: 1 1 8rem;
+  min-width: 7rem;
+  text-align: center;
 }
 
 .topic:active {
@@ -94,14 +120,17 @@ button {
 
 .card {
   background-color: var(--card-bg);
-  max-width: 40rem;
-  min-height: 20rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: min(40rem, 90%);
+  min-height: auto;
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
   box-shadow: 5px 3px 5px var(--back-forest);
   color: var(--text);
+  margin: 3rem auto;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
 .cardTitle {
@@ -113,9 +142,18 @@ button {
   margin-bottom: 1rem;
 }
 
+.cardContent {
+  padding: 0 1.5rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .instruction {
-  padding: 1rem 2rem 0 2rem;
-  font-size: 14px;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .link {
@@ -124,22 +162,22 @@ button {
 }
 
 .aggrement {
-  position: absolute;
-  bottom: 20%;
+  position: static;
   overflow-wrap: break-word;
   padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .cardContent button {
   border: none;
   background-color: var(--primary);
-  padding: 0.5rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 1rem;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  bottom: 10%;
   color: var(--cornsilk);
+  margin: 0 auto;
 }
 
 @media (max-width: 500px) {
@@ -151,5 +189,31 @@ button {
   .homeContainer {
     height: 100%;
     width: 100%;
+  }
+
+  .quiz-topics {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .topic {
+    width: 80%;
+    text-align: center;
+  }
+
+  .cardTitle {
+    font-size: 1.5rem;
+  }
+
+  .option {
+    display: block;
+    width: 80%;
+    margin: 0.5rem auto;
+    text-align: center;
+  }
+
+  .cardContent button {
+    width: 80%;
+    bottom: 5%;
   }
 }

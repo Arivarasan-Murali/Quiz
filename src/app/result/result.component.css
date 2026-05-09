@@ -1,21 +1,25 @@
 .resultContainer {
-  height: 100%;
+  min-height: calc(100vh - 5rem);
   background-color: var(--background);
   color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resultText {
+  font-size: 2rem;
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .result {
   font-size: 2rem;
   padding-bottom: 1rem;
   text-align: center;
-}
-
-.resultText {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
 }
 
 .review {
@@ -27,8 +31,27 @@
   cursor: pointer;
   color: var(--cornsilk);
   border-radius: 0.5rem;
+  transition: background-color 0.3s;
 }
 
 .review:active {
   box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .resultText {
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .result {
+    font-size: 1.8rem;
+  }
+
+  .review {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
 }

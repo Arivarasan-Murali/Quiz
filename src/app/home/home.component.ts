@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   isTopicSelected: boolean = false;
   level: string = '';
   launch: boolean = false;
+  selectedTopicIndex: number | null = null;
 
   catagory: categories[];
 
@@ -50,8 +51,10 @@ export class HomeComponent implements OnInit {
     this.cardTitle = this.topics[i].name;
     this.isTopicSelected = true;
     this.launch = false;
+    this.selectedTopicIndex = i;
     this.chooseLevel('');
     this.storageService.topic = this.topics[i].id.toString();
+    this.storageService.topicName = this.topics[i].name;
     localStorage.setItem('category', this.topics[i].id.toString());
     setTimeout(() => {
       //Dummy timer to check the input field after it has been loaded into DOM

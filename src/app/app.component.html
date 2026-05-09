@@ -1,8 +1,15 @@
 <div class="page">
   <div class="titleBar">
-    <span class="home" routerLink="" (click)="onLoadHome()">Home</span>
-    <span class="title">Quiz</span>
-    <button class="theme-toggle" (click)="toggleTheme()">{{ isDarkTheme ? 'Light' : 'Dark' }}</button>
+    <span class="home" routerLink="" (click)="onLoadHome()">
+      <span class="home-icon">🏠</span>
+      <span class="home-text">Home</span>
+    </span>
+    <span class="title">{{ pageTitle }}</span>
+    <button class="theme-toggle" [class.dark-mode-btn]="isDarkTheme" (click)="toggleTheme()" title="Toggle theme">
+      <span class="theme-icon">{{ isDarkTheme ? '☀️' : '🌙' }}</span>
+    </button>
   </div>
-  <router-outlet></router-outlet>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
 </div>

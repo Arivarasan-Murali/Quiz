@@ -28,11 +28,16 @@
   box-sizing: border-box;
 }
 
+html {
+  min-width: 320px;
+}
+
 body {
   background-color: var(--background);
   color: var(--text);
   overflow: auto;
   transition: background-color 0.3s, color 0.3s;
+  min-width: 320px;
 }
 
 .desktopMode {
@@ -53,5 +58,38 @@ body {
 @media screen and ((max-width: 1000px) or (max-height: 600px)) {
   .desktopMode {
     display: grid;
+  }
+}
+
+/* Modern scrollbar styling */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(108, 58, 4, 0.8) transparent;
+}
+
+body::-webkit-scrollbar,
+*:not(.desktopMode)::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+body::-webkit-scrollbar-track,
+*:not(.desktopMode)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb,
+*:not(.desktopMode)::-webkit-scrollbar-thumb {
+  background-color: rgba(108, 58, 4, 0.8);
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 }

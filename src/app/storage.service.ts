@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class StorageService {
   topic: string | null = null;
+  topicName: string | null = null;
   difficulty: string | null = null;
   result: string | null = null; // Store PASS or FAIL
   noMoreEdit: boolean = false; // To prevent editing after the results are displayed

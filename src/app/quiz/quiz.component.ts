@@ -52,6 +52,7 @@ export class QuizComponent implements OnInit {
       this.setOfQA = [...this.storageService.quizData];
       this.chosenId = this.setOfQA[this.questionNo].chosen;
       this.noMoreEdit = true;
+      this.unansweredQuestionNumbers = [];
       for (let i = 0; i < this.setOfQA.length; i++) {
         if (
           this.setOfQA[i].options[this.setOfQA[i].chosen] ===
@@ -220,6 +221,7 @@ export class QuizComponent implements OnInit {
         ? 'Pass'
         : 'Fail';
     this.storageService.noMoreEdit = true;
+    this.unansweredQuestionNumbers = [];
     this.router.navigate(['/result']);
   }
 }
