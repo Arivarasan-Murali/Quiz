@@ -186,12 +186,18 @@ export class QuizComponent implements OnInit {
   }
 
   updateAnswered() {
-    let elements = document.getElementsByClassName('pageNumber');
-    for (let i = 0; i < this.setOfQA.length; i++) {
+    const elements = document.getElementsByClassName('pageNumber');
+    for (let i = 0; i < elements.length; i++) {
       elements[i].classList.remove('unanswered');
     }
+
     for (let j = 0; j < this.unansweredQuestionNumbers.length; j++) {
-      elements[this.unansweredQuestionNumbers[j]].classList.add('unanswered');
+      for (let k = 0; k < elements.length; k++) {
+        const pageIndex = k % this.setOfQA.length;
+        if (pageIndex === this.unansweredQuestionNumbers[j]) {
+          elements[k].classList.add('unanswered');
+        }
+      }
     }
   }
 
